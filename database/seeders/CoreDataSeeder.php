@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\ExpenseCategory;
 use App\Models\Facility;
 use App\Models\Property;
 use App\Models\Role;
@@ -133,5 +134,13 @@ class CoreDataSeeder extends Seeder
                 $airSampah->id,
             ]);
         }
+
+        // -------------------------------------------------------------
+        // 8. Buat Master Kategori Pengeluaran (OPEX & CAPEX)
+        // -------------------------------------------------------------
+        ExpenseCategory::firstOrCreate(['name' => 'Listrik & Air Pompa', 'expense_type' => 'OPEX']);
+        ExpenseCategory::firstOrCreate(['name' => 'Kebersihan & Sampah', 'expense_type' => 'OPEX']);
+        ExpenseCategory::firstOrCreate(['name' => 'Pemeliharaan & Perbaikan', 'expense_type' => 'OPEX']);
+        ExpenseCategory::firstOrCreate(['name' => 'Renovasi / Modal Aset', 'expense_type' => 'CAPEX']);
     }
 }
