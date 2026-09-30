@@ -6,15 +6,16 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    public function up(): void
+    public function up()
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lease_id')->constrained('leases')->cascadeOnDelete();
-            $table->timestamp('paid_at');
+            $table->foreignId('lease_id')->constrained('leases')->onDelete('cascade');
+            $table->foreignId('customer_id')->constrained('customers')->onDelete('cascade'); // INI YANG KURANG
             $table->decimal('amount', 12, 2);
-            $table->string('payment_method'); // CASH, TRANSFER, E-WALLET
-            $table->string('status')->default('SUCCESS'); // SUCCESS, PENDING, REJECTED
+            $table->date('payment_date');
+            $table->string('status')->default('SUCCESS');
+            $table->string('method')->nullable();
             $table->timestamps();
         });
     }

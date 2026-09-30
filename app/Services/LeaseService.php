@@ -31,14 +31,14 @@ class LeaseService
 
             // 3. Buat Record Lease (Kontrak Sewa)
             $lease = Lease::create([
-                'customer_id'    => $data['customer_id'],
-                'room_id'        => $room->id,
-                'booking_id'     => $data['booking_id'] ?? null,
-                'start_date'     => $startDate->format('Y-m-d'),
-                'end_date'       => $endDate->format('Y-m-d'),
-                'rental_rate'    => $contractedRentalRate,
+                'customer_id' => $data['customer_id'],
+                'room_id' => $room->id,
+                'booking_id' => $data['booking_id'] ?? null,
+                'start_date' => $startDate->format('Y-m-d'),
+                'end_date' => $endDate->format('Y-m-d'),
+                'rental_rate' => $contractedRentalRate,
                 'deposit_amount' => $data['deposit_amount'] ?? 0.00,
-                'status'         => 'ACTIVE',
+                'status' => 'ACTIVE',
             ]);
 
             // 4. Update Status Kamar menjadi OCCUPIED
@@ -46,16 +46,16 @@ class LeaseService
 
             // 5. Terbitkan Tagihan Sewa Bulan Pertama (Lease Charge)
             $charge = LeaseCharge::create([
-                'lease_id'     => $lease->id,
+                'lease_id' => $lease->id,
                 'period_start' => $startDate->format('Y-m-d'),
-                'period_end'   => $endDate->format('Y-m-d'),
-                'due_date'     => $startDate->format('Y-m-d'), // Jatuh tempo di hari pertama
-                'amount'       => $contractedRentalRate,
-                'status'       => 'PENDING',
+                'period_end' => $endDate->format('Y-m-d'),
+                'due_date' => $startDate->format('Y-m-d'), // Jatuh tempo di hari pertama
+                'amount' => $contractedRentalRate,
+                'status' => 'PENDING',
             ]);
 
             // 6. Jika ada Booking ID dengan DP, Alokasikan Pemotongan DP
-            if (!empty($data['booking_id'])) {
+            if (! empty($data['booking_id'])) {
                 $booking = Booking::find($data['booking_id']);
                 if ($booking) {
                     $booking->update(['status' => 'APPROVED']);
@@ -65,23 +65,24 @@ class LeaseService
                 if ($dpAmount > 0) {
                     // Catat penerimaan kas DP
                     $payment = Payment::create([
-                        'lease_id'       => $lease->id,
-                        'paid_at'        => now(),
-                        'amount'         => $dpAmount,
-                        'payment_method' => $data['dp_payment_method'] ?? 'TRANSFER',
-                        'status'         => 'SUCCESS',
+                        'lease_id' => $lease->id,
+                        'customer_id' => $lease->customer_id,
+                        'payment_date' => now()->toDateString(),
+                        'amount' => $dpAmount,
+                        'method' => $data['dp_payment_method'] ?? 'TRANSFER',
+                        'status' => 'SUCCESS',
                     ]);
 
                     // Alokasikan DP memotong Tagihan Bulan Pertama
                     PaymentAllocation::create([
-                        'payment_id'      => $payment->id,
+                        'payment_id' => $payment->id,
                         'lease_charge_id' => $charge->id,
-                        'amount'          => $dpAmount,
+                        'amount' => $dpAmount,
                     ]);
 
                     // Update Status Tagihan (PARTIAL atau PAID jika DP Lunas)
                     $charge->update([
-                        'status' => ($dpAmount >= $contractedRentalRate) ? 'PAID' : 'PARTIAL'
+                        'status' => ($dpAmount >= $contractedRentalRate) ? 'PAID' : 'PARTIAL',
                     ]);
                 }
             }

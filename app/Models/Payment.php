@@ -13,15 +13,21 @@ class Payment extends Model
 
     protected $fillable = [
         'lease_id',
-        'paid_at',
+        'customer_id',
         'amount',
-        'payment_method',
+        'payment_date',
         'status',
+        'method',
     ];
 
     public function lease(): BelongsTo
     {
         return $this->belongsTo(Lease::class);
+    }
+
+    public function customer(): BelongsTo
+    {
+        return $this->belongsTo(Customer::class);
     }
 
     public function allocations(): HasMany

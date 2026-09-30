@@ -1,7 +1,7 @@
 <?php
 
-test('the application returns a successful response', function () {
-    $response = $this->get('/');
+test('the management login page is available', function () {
+    $response = $this->get('/login');
 
-    $response->assertStatus(200);
+    $response->assertOk()->assertSee('Masuk pengelola');
 });

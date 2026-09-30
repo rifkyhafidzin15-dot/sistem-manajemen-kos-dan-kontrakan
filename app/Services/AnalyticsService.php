@@ -5,7 +5,6 @@ namespace App\Services;
 use App\Models\Payment;
 use App\Models\Property;
 use App\Models\Room;
-use Carbon\Carbon;
 
 class AnalyticsService
 {
@@ -22,9 +21,9 @@ class AnalyticsService
         $occupancyRate = $totalRooms > 0 ? ($occupiedRooms / $totalRooms) * 100 : 0;
 
         return [
-            'total_rooms'    => $totalRooms,
+            'total_rooms' => $totalRooms,
             'occupied_rooms' => $occupiedRooms,
-            'available_rooms'=> $totalRooms - $occupiedRooms,
+            'available_rooms' => $totalRooms - $occupiedRooms,
             'occupancy_rate' => round($occupancyRate, 2), // Persentase %
         ];
     }
@@ -37,24 +36,25 @@ class AnalyticsService
         $property = Property::findOrFail($propertyId);
 
         // Total pendapatan kas masuk selama 1 tahun penuh
-        $annualRevenue = Payment::whereHas('lease', function ($query) use ($propertyId) {
-            $query->where('property_id', $propertyId);
-        })
-        ->where('status', 'SUCCESS')
-        ->whereYear('paid_at', $year)
-        ->sum('amount');
+        $annualRevenue = Payment::query()
+            ->join('leases', 'payments.lease_id', '=', 'leases.id')
+            ->join('rooms', 'leases.room_id', '=', 'rooms.id')
+            ->where('rooms.property_id', $propertyId)
+            ->where('payments.status', 'SUCCESS')
+            ->whereYear('payments.payment_date', $year)
+            ->sum('payments.amount');
 
         $initialInvestment = $property->initial_investment;
 
-        $grossYield = ($initialInvestment > 0) 
-            ? ($annualRevenue / $initialInvestment) * 100 
+        $grossYield = ($initialInvestment > 0)
+            ? ($annualRevenue / $initialInvestment) * 100
             : 0;
 
         return [
-            'year'               => $year,
+            'year' => $year,
             'initial_investment' => $initialInvestment,
-            'annual_revenue'     => $annualRevenue,
-            'gross_yield'        => round($grossYield, 2), // Persentase %
+            'annual_revenue' => $annualRevenue,
+            'gross_yield' => round($grossYield, 2), // Persentase %
         ];
     }
 }

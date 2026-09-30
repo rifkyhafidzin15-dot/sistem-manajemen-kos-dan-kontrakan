@@ -34,12 +34,12 @@ class BillingService
         }
 
         return LeaseCharge::create([
-            'lease_id'     => $lease->id,
+            'lease_id' => $lease->id,
             'period_start' => $periodStart->format('Y-m-d'),
-            'period_end'   => $periodEnd->format('Y-m-d'),
-            'due_date'     => $dueDate->format('Y-m-d'),
-            'amount'       => $lease->rental_rate,
-            'status'       => 'PENDING',
+            'period_end' => $periodEnd->format('Y-m-d'),
+            'due_date' => $dueDate->format('Y-m-d'),
+            'amount' => $lease->rental_rate,
+            'status' => 'PENDING',
         ]);
     }
 
@@ -51,18 +51,19 @@ class BillingService
         return DB::transaction(function () use ($charge, $amountPaid, $paymentMethod) {
             // 1. Catat Penerimaan Kas
             $payment = Payment::create([
-                'lease_id'       => $charge->lease_id,
-                'paid_at'        => now(),
-                'amount'         => $amountPaid,
-                'payment_method' => $paymentMethod,
-                'status'         => 'SUCCESS',
+                'lease_id' => $charge->lease_id,
+                'customer_id' => $charge->lease?->customer_id,
+                'payment_date' => now()->toDateString(),
+                'amount' => $amountPaid,
+                'method' => $paymentMethod,
+                'status' => 'SUCCESS',
             ]);
 
             // 2. Hubungkan ke Tagihan
             PaymentAllocation::create([
-                'payment_id'      => $payment->id,
+                'payment_id' => $payment->id,
                 'lease_charge_id' => $charge->id,
-                'amount'          => $amountPaid,
+                'amount' => $amountPaid,
             ]);
 
             // 3. Hitung Total Pembayaran Terkumpul untuk Tagihan Ini

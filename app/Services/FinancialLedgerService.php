@@ -16,13 +16,14 @@ class FinancialLedgerService
         $startDate = Carbon::createFromDate($year, $month, 1)->startOfMonth();
         $endDate = $startDate->copy()->endOfMonth();
 
-        // 1. Total Pendapatan Sewa Terkumpul (Cash Collected / Gross Revenue)
-        $totalRevenue = Payment::whereHas('lease', function ($query) use ($propertyId) {
-            $query->where('property_id', $propertyId);
-        })
-        ->where('status', 'SUCCESS')
-        ->whereBetween('paid_at', [$startDate, $endDate])
-        ->sum('amount');
+        // Total Pendapatan Sewa Terkumpul (Cash Collected / Gross Revenue)
+        $totalRevenue = Payment::query()
+            ->join('leases', 'payments.lease_id', '=', 'leases.id')
+            ->join('rooms', 'leases.room_id', '=', 'rooms.id')
+            ->where('rooms.property_id', $propertyId)
+            ->where('payments.status', 'SUCCESS')
+            ->whereBetween('payments.payment_date', [$startDate->format('Y-m-d'), $endDate->format('Y-m-d')])
+            ->sum('payments.amount');
 
         // 2. Total Pengeluaran Operasional (OPEX)
         $totalOpex = Expense::where('property_id', $propertyId)
@@ -47,12 +48,12 @@ class FinancialLedgerService
         $netCashFlow = $netOperatingIncome - $totalCapex;
 
         return [
-            'period'               => $startDate->translatedFormat('F Y'),
-            'gross_revenue'        => $totalRevenue,
-            'total_opex'           => $totalOpex,
+            'period' => $startDate->translatedFormat('F Y'),
+            'gross_revenue' => $totalRevenue,
+            'total_opex' => $totalOpex,
             'net_operating_income' => $netOperatingIncome,
-            'total_capex'          => $totalCapex,
-            'net_cash_flow'        => $netCashFlow,
+            'total_capex' => $totalCapex,
+            'net_cash_flow' => $netCashFlow,
         ];
     }
 }

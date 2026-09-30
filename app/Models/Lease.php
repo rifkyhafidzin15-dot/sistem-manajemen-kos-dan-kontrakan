@@ -22,14 +22,16 @@ class Lease extends Model
         'status',
     ];
 
-    public function customer(): BelongsTo
-    {
-        return $this->belongsTo(Customer::class);
-    }
-
+    // Jembatan relasi ke data Kamar (Room)
     public function room(): BelongsTo
     {
         return $this->belongsTo(Room::class);
+    }
+
+    // Jembatan relasi ke data Penyewa (Customer)
+    public function customer(): BelongsTo
+    {
+        return $this->belongsTo(Customer::class);
     }
 
     public function charges(): HasMany

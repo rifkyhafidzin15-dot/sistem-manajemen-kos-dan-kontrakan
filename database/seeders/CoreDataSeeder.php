@@ -51,13 +51,13 @@ class CoreDataSeeder extends Seeder
         ]);
 
         // 4. Buat Master Fasilitas
-        $kmDalam   = Facility::create(['name' => 'Kamar Mandi Dalam']);
-        $kmLuar    = Facility::create(['name' => 'Kamar Mandi Luar']);
-        $dapur     = Facility::create(['name' => 'Dapur Pribadi']);
-        $exhaust   = Facility::create(['name' => 'Exhaust Fan']);
-        $kasur     = Facility::create(['name' => 'Kasur']);
-        $lemari    = Facility::create(['name' => 'Lemari Pakaian']);
-        $parkir    = Facility::create(['name' => 'Area Parkir']);
+        $kmDalam = Facility::create(['name' => 'Kamar Mandi Dalam']);
+        $kmLuar = Facility::create(['name' => 'Kamar Mandi Luar']);
+        $dapur = Facility::create(['name' => 'Dapur Pribadi']);
+        $exhaust = Facility::create(['name' => 'Exhaust Fan']);
+        $kasur = Facility::create(['name' => 'Kasur']);
+        $lemari = Facility::create(['name' => 'Lemari Pakaian']);
+        $parkir = Facility::create(['name' => 'Area Parkir']);
         $airSampah = Facility::create(['name' => 'Iuran Air Pompa & Sampah Included']);
 
         // -------------------------------------------------------------
@@ -66,11 +66,11 @@ class CoreDataSeeder extends Seeder
         for ($i = 1; $i <= 2; $i++) {
             $kontrakan = Room::create([
                 'property_id' => $property->id,
-                'room_number' => 'K-0' . $i,
-                'room_type'   => 'Kontrakan 3 Sekat',
-                'base_price'  => 1500000.00,
-                'size'        => '40m2',
-                'status'      => 'AVAILABLE',
+                'room_number' => 'K-0'.$i,
+                'room_type' => 'Kontrakan 3 Sekat',
+                'base_price' => 1500000.00,
+                'size' => '40m2',
+                'status' => 'AVAILABLE',
             ]);
 
             $kontrakan->facilities()->attach([
@@ -87,11 +87,11 @@ class CoreDataSeeder extends Seeder
         for ($i = 1; $i <= 2; $i++) {
             $kostKmDalam = Room::create([
                 'property_id' => $property->id,
-                'room_number' => 'KM-20' . $i,
-                'room_type'   => 'Kost KM Dalam',
-                'base_price'  => 850000.00,
-                'size'        => '16m2',
-                'status'      => 'AVAILABLE',
+                'room_number' => 'KM-20'.$i,
+                'room_type' => 'Kost KM Dalam',
+                'base_price' => 850000.00,
+                'size' => '16m2',
+                'status' => 'AVAILABLE',
             ]);
 
             $kostKmDalam->facilities()->attach([
@@ -119,10 +119,10 @@ class CoreDataSeeder extends Seeder
             $kostKmLuar = Room::create([
                 'property_id' => $property->id,
                 'room_number' => $cfg['number'],
-                'room_type'   => $cfg['type'],
-                'base_price'  => $cfg['price'],
-                'size'        => $cfg['size'],
-                'status'      => 'AVAILABLE',
+                'room_type' => $cfg['type'],
+                'base_price' => $cfg['price'],
+                'size' => $cfg['size'],
+                'status' => 'AVAILABLE',
             ]);
 
             $kostKmLuar->facilities()->attach([
