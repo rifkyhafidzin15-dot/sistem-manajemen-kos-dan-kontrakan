@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Masuk Pengelola | Kost & Kontrakan Management</title>
+    <title>Masuk Pengelola | KostZenn</title>
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -155,7 +155,7 @@
 
         <!-- Footer System Note -->
         <p class="mt-6 text-center text-xs text-slate-400 font-mono">
-            KostOS Platform v2.4 • Private Authentication
+            KostZenn • Private Authentication
         </p>
     </main>
 

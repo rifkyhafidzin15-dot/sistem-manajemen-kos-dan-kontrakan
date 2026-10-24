@@ -66,7 +66,7 @@
                     Selamat Datang, {{ auth()->user()->name }}
                 </h1>
                 <p class="mt-2 text-xs sm:text-sm text-slate-400 leading-relaxed">
-                    Pengelolaan terpadu <span class="text-white font-semibold">{{ $property?->name ?? 'Kost & Kontrakan Utama' }}</span>. Pantau okupansi kamar, arus kas masuk, dan performa imbal hasil properti secara realtime.
+                    Pengelolaan terpadu <span class="text-white font-semibold">{{ $property?->name ?? 'KostZenn' }}</span>. Pantau okupansi kamar, arus kas masuk, dan performa imbal hasil properti secara realtime.
                 </p>
                 <div class="mt-4 flex flex-wrap items-center gap-2 text-xs">
                     <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-slate-900 border border-slate-800 text-slate-300">
@@ -971,7 +971,7 @@
 
             <!-- Drawer Footer Note -->
             <div class="pt-6 border-t border-slate-800/80 text-[11px] text-slate-400 text-center">
-                KostOS Core Property Management Engine
+                KostZenn Property Management Engine
             </div>
         </div>
     </div>

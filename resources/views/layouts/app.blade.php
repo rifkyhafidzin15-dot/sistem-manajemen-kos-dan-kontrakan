@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $title ?? 'KostOS Enterprise — Modern Property Management' }}</title>
+    <title>{{ $title ?? 'KostZenn — Manajemen Kost & Kontrakan Modern' }}</title>
     
     <!-- Google Fonts: Plus Jakarta Sans & Inter for World-Class SaaS Typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -97,22 +97,15 @@
                 <!-- BRAND & APP IDENTITY -->
                 <div class="flex items-center justify-between pb-5 border-b border-slate-800/80">
                     <div class="flex items-center gap-3">
-                        <div class="relative flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-emerald-400 p-[1px] shadow-glow-indigo">
-                            <div class="w-full h-full bg-[#0E1422] rounded-[11px] flex items-center justify-center">
-                                <svg class="w-5 h-5 text-indigo-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-                                    <polyline points="9 22 9 12 15 12 15 22"/>
-                                </svg>
-                            </div>
-                        </div>
+                        <x-logo size="md" :dark="true" :text="false" class="shrink-0" />
                         <div>
                             <div class="flex items-center gap-2">
-                                <span class="font-extrabold text-sm tracking-tight text-white">KOST<span class="text-indigo-400">OS</span></span>
+                                <span class="font-extrabold text-sm tracking-tight text-white">Kost<span class="text-indigo-400">Zenn</span></span>
                                 <span class="px-1.5 py-0.5 text-[9px] font-bold rounded bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 uppercase tracking-widest font-mono">PRO</span>
                             </div>
                             <p class="text-[11px] text-slate-400 font-medium">Property Portfolio Suite</p>
                         </div>
-                    </div>
+                    </div> 
                     <!-- Close button on mobile -->
                     <button @click="mobileMenuOpen = false" class="lg:hidden p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800/60">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
@@ -129,7 +122,7 @@
                         <span class="text-slate-500">IDR</span>
                     </div>
                     <div class="font-bold text-xs text-white truncate">
-                        {{ \Illuminate\Support\Facades\Schema::hasTable('properties') ? (\App\Models\Property::first()?->name ?? 'Kost & Kontrakan Utama') : 'Kost & Kontrakan Utama' }}
+                        {{ \Illuminate\Support\Facades\Schema::hasTable('properties') ? (\App\Models\Property::first()?->name ?? 'KostZenn') : 'KostZenn' }}
                     </div>
                     <div class="mt-1 flex items-center justify-between text-[11px] text-slate-400">
                         <span>{{ \Illuminate\Support\Facades\Schema::hasTable('rooms') ? \App\Models\Room::count() : 0 }} Total Unit</span>
@@ -276,7 +269,7 @@
 
                     <!-- Breadcrumbs & Context Pill -->
                     <div class="flex items-center gap-2 text-xs">
-                        <span class="text-slate-400 font-medium">Kost & Kontrakan</span>
+                        <span class="text-slate-400 font-medium">KostZenn</span>
                         <span class="text-slate-600">/</span>
                         <span class="text-slate-200 font-semibold">{{ $breadcrumb ?? 'Dashboard Management' }}</span>
                     </div>

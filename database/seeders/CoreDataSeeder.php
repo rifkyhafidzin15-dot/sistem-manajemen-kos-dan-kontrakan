@@ -42,8 +42,8 @@ class CoreDataSeeder extends Seeder
 
         // 3. Buat Data Properti Utama (110m2)
         $property = Property::create([
-            'name' => 'Kost & Kontrakan Utama',
-            'address' => 'Jl. Merdeka No. 45',
+            'name' => 'KostZenn',
+            'address' => 'JI. Raya Joglo Gg. H. Najih RT 002 RW 01 Nomer 62 Kelurahan Joglo Kecamatan Kembangan Jakarta Barat 11640',
             'acquisition_date' => '2025-01-01',
             'initial_investment' => 1500000000.00, // Nilai modal awal properti
             'base_currency' => 'IDR',

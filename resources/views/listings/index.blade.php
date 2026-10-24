@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Temukan kamar kost dan hunian impian dengan fasilitas lengkap, proses sewa transparan, dan manajemen modern.">
-    <title>vHomes | Let’s Guide You To Your Dream Home</title>
+    <title>KostZenn | Let’s Guide You To Your Dream Home</title>
     
     <!-- Google Fonts: Plus Jakarta Sans & Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -62,19 +62,10 @@
         <!-- TOP NAVIGATION BAR -->
         <header class="relative z-30 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
             <div class="flex items-center justify-between">
-                
-                <!-- Brand Logo (vHomes) -->
-                <a href="{{ route('home') }}" class="flex items-center gap-2.5 group">
-                    <div class="flex items-end gap-1 h-7">
-                        <span class="w-1.5 h-4 rounded-full bg-[#5B4AE6] group-hover:scale-110 transition-transform"></span>
-                        <span class="w-1.5 h-7 rounded-full bg-[#5B4AE6]"></span>
-                        <span class="w-1.5 h-5 rounded-full bg-[#7C3AED]"></span>
-                    </div>
-                    <span class="text-2xl font-extrabold tracking-tight text-[#0F172A] font-sans">
-                        v<span class="text-[#5B4AE6]">Homes</span>
-                    </span>
-                </a>
-
+                <!-- Brand Logo (KostZenn) -->
+    <a href="{{ route('home') }}" class="group inline-flex">
+        <x-logo size="md" class="transition-transform duration-200 group-hover:scale-105" />
+    </a>
                 <!-- Center Navigation Links -->
                 <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-600">
                     <a href="{{ route('home') }}" class="relative text-[#5B4AE6] font-bold py-1">
@@ -83,6 +74,7 @@
                     </a>
                     <a href="#about" class="hover:text-[#5B4AE6] transition-colors py-1">About</a>
                     <a href="#properties" class="hover:text-[#5B4AE6] transition-colors py-1">Properties</a>
+                    <a href="#lokasi" class="hover:text-[#5B4AE6] transition-colors py-1">Lokasi</a>
                     <a href="#contact" class="hover:text-[#5B4AE6] transition-colors py-1">ContactUs</a>
                 </nav>
 
@@ -107,6 +99,7 @@
                 <a @click="mobileMenuOpen = false" href="{{ route('home') }}" class="text-[#5B4AE6] py-1">Home</a>
                 <a @click="mobileMenuOpen = false" href="#about" class="hover:text-[#5B4AE6] py-1">About</a>
                 <a @click="mobileMenuOpen = false" href="#properties" class="hover:text-[#5B4AE6] py-1">Properties</a>
+                <a @click="mobileMenuOpen = false" href="#lokasi" class="hover:text-[#5B4AE6] py-1">Lokasi</a>
                 <a @click="mobileMenuOpen = false" href="#contact" class="hover:text-[#5B4AE6] py-1">ContactUs</a>
                 <div class="pt-2 border-t border-slate-100 flex items-center justify-between">
                     <a href="{{ route('login') }}" class="text-slate-600 font-bold">Login Pengelola</a>
@@ -485,6 +478,54 @@
         </section>
 
         <!-- SECTION 3: CONTACT US -->
+                <section id="lokasi" class="py-12 border-t border-slate-100 space-y-8">
+            <div class="text-center max-w-2xl mx-auto">
+                <span class="inline-flex items-center px-3 py-1 rounded-full bg-[#EEF2FF] text-[#5B4AE6] text-xs font-bold uppercase tracking-wider">
+                    Lokasi
+                </span>
+                <h2 class="mt-3 text-2xl sm:text-3xl font-extrabold tracking-tight text-[#0F172A]">
+                    Temukan KostZenn
+                </h2>
+                <p class="mt-2 text-sm text-slate-500">
+                    Kunjungi langsung lokasi kami atau buka rute perjalanan dari posisimu sekarang.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div class="lg:col-span-2 overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm">
+                    <iframe
+                        src="{{ config('kostzenn.maps_embed_url') }}"
+                        title="Peta lokasi KostZenn"
+                        class="w-full h-80 sm:h-[420px] border-0"
+                        loading="lazy"
+                        allowfullscreen
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+
+                <div class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm flex flex-col justify-between gap-6">
+                    <div>
+                        <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Alamat</span>
+                        <p class="mt-2 text-base font-bold text-[#0F172A] leading-snug">
+                            {{ config('kostzenn.address') }}
+                        </p>
+                        <p class="mt-2 text-xs text-slate-500">
+                            Sebaiknya hubungi pengelola dulu sebelum datang agar unit bisa disiapkan untuk survey.
+                        </p>
+                    </div>
+
+                    <div class="flex flex-col gap-3">
+                        <a href="{{ config('kostzenn.maps_directions') }}" target="_blank" rel="noopener"
+                           class="inline-flex items-center justify-center px-5 py-3 rounded-xl bg-[#5B4AE6] hover:bg-[#4A37D6] text-white text-sm font-bold transition-colors">
+                            Petunjuk Arah
+                        </a>
+                        <a href="{{ config('kostzenn.maps_link') }}" target="_blank" rel="noopener"
+                           class="inline-flex items-center justify-center px-5 py-3 rounded-xl bg-white hover:bg-slate-50 text-slate-700 text-sm font-bold border border-slate-200 transition-colors">
+                            Buka di Google Maps
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section> 
         <section id="contact" class="rounded-3xl bg-gradient-to-br from-[#0F172A] to-[#1E1B4B] text-white p-8 sm:p-14 shadow-2xl relative overflow-hidden">
             <div class="absolute -right-20 -bottom-20 w-96 h-96 bg-[#5B4AE6]/20 rounded-full blur-3xl pointer-events-none"></div>
 
@@ -502,7 +543,7 @@
                 </div>
 
                 <div class="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col gap-3">
-                    <a href="https://wa.me/6281234567890?text=Halo%20vHomes,%20saya%20tertarik%20untuk%20survey%20kamar%20kost"
+                    <a href="https://wa.me/{{ config('kostzenn.whatsapp') }}?text=Halo%20KostZenn,%20saya%20tertarik%20untuk%20survey%20kamar%20kost"
                        target="_blank"
                        class="inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-[#5B4AE6] hover:bg-[#4A37D6] text-white text-sm font-bold shadow-lg shadow-indigo-500/30 transition-all">
                         <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
@@ -523,14 +564,7 @@
     <footer class="border-t border-slate-100 bg-[#F8F7FD] py-12 text-slate-500 text-xs">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6">
             <div class="flex items-center gap-2.5">
-                <div class="flex items-end gap-1 h-5">
-                    <span class="w-1 h-3 rounded-full bg-[#5B4AE6]"></span>
-                    <span class="w-1 h-5 rounded-full bg-[#5B4AE6]"></span>
-                    <span class="w-1 h-3.5 rounded-full bg-[#7C3AED]"></span>
-                </div>
-                <span class="text-base font-extrabold text-[#0F172A]">
-                    v<span class="text-[#5B4AE6]">Homes</span>
-                </span>
+                <x-logo size="sm" />
                 <span class="text-slate-400">| Kost & Property Management</span>
             </div>
 
@@ -542,7 +576,7 @@
             </div>
 
             <p class="text-slate-400">
-                &copy; {{ date('Y') }} vHomes Kost System. All rights reserved.
+                &copy; {{ date('Y') }} KostZenn Kost System. All rights reserved.
             </p>
         </div>
     </footer>
@@ -597,7 +631,7 @@
                 <button type="button" @click="selectedRoomModal = null" class="w-1/3 py-3 rounded-xl border border-slate-200 text-xs font-bold text-slate-600 hover:bg-slate-50 transition-all">
                     Tutup
                 </button>
-                <a :href="'https://wa.me/6281234567890?text=' + encodeURIComponent('Halo pengelola vHomes, saya ingin survey/sewa Unit ' + selectedRoomModal?.number + ' (' + selectedRoomModal?.type + ') tarif ' + selectedRoomModal?.price + '/bulan.')"
+                <a :href="'https://wa.me/{{ config('kostzenn.whatsapp') }}?text=' + encodeURIComponent('Halo pengelola KostZenn, saya ingin survey/sewa Unit ' + selectedRoomModal?.number + ' (' + selectedRoomModal?.type + ') tarif ' + selectedRoomModal?.price + '/bulan.')"
                    target="_blank"
                    class="w-2/3 py-3 rounded-xl bg-[#5B4AE6] hover:bg-[#4A37D6] text-white text-xs font-bold text-center shadow-glow-purple transition-all">
                     Booking via WhatsApp →
